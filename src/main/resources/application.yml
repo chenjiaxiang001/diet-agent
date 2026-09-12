@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: harness-agent
+  # 私有配置（真实 api-key / 数据库密码）放在 application-local.yml，该文件已 gitignore，不入库
+  # 本机运行时把真实值写进 src/main/resources/application-local.yml 即可覆盖下面的占位符
+  config:
+    import: optional:classpath:application-local.yml
+  datasource:
+    url: jdbc:mysql://localhost:3306/diet_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: root
+    password: 请填入你的MySQL密码
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.diet.model
+  configuration:
+    map-underscore-to-camel-case: true
+server:
+  port: 8080
+agentscope:
+  dashscope:
+    api-key: 请填入自己的apiKey
+diet:
+  llm:
+    main-model: qwen-max
+    light-model: qwen-turbo
+  session:
+    max-history-turns: 10
+logging:
+  level:
+    com.diet: INFO
